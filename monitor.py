@@ -118,9 +118,11 @@ def send_email(subject: str, body: str) -> None:
     msg["From"] = sender
     msg["To"] = receiver
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(sender, password)
-        server.send_message(msg)
+with smtplib.SMTP("smtp.office365.com", 587) as server:
+    server.starttls()
+    server.login(sender, password)
+    server.send_message(msg)
+
 
 def main():
     old_state = load_state()
